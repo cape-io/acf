@@ -30,7 +30,7 @@ module.exports = React.createClass
     titleEl = <h2 className={className}>{title} {msg}</h2>
 
     if picture
-      pic = <img src="//composersforum.org/#{picture.filepath}" style={float:'right'} alt="member photo" />
+      pic = <img src="//acf-img.imgix.net/#{picture.filepath}?w=300" style={float:'right'} alt="member photo" />
     <div>
       {pic}
       {titleEl}
