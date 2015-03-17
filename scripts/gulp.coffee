@@ -29,7 +29,8 @@ exorcist = require 'exorcist'
 watchify = require 'watchify'
 
 _ = require 'lodash'
-
+redis = require("redis")
+red = redis.createClient()
 # Custom Helper Scripts
 #content = require './content'
 
@@ -45,12 +46,9 @@ gulp.task "default", ['browser-sync'], ->
 # For development.
 gulp.task "browser-sync", ['compile-watch', 'styles', 'static'], ->
   browserSync
-    server:
-      baseDir: 'public'
-    # open: 'external'
-    # host: 'l.cape.io'
+    proxy: "l.acf.ookc.co"
     logConnections: true
-    injectChanges: false
+    injectChanges: true
     #logLevel: 'debug'
   return
 
@@ -88,6 +86,9 @@ gulp.task 'bundle', ['templates'], ->
     .pipe browserSync.reload({stream:true})
 
 w.on 'update', () ->
+  red.del 'rjsRoute.h.acf', (err, res) ->
+    console.log 'expireHtml', err, res
+
   runSequence 'bundle'
 
 gulp.task 'compile-watch', (cb) ->

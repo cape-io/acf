@@ -76,6 +76,7 @@
     "minimist": "1.x",
     "gulp-clean": "x",
     "imgix": "0.0.1",
-    "queries": "0.0.3"
+    "queries": "0.0.3",
+    "redis": "^0.12.1"
   }
 }

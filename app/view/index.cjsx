@@ -1,6 +1,6 @@
 React = require 'react'
-
-Main = require './main'
+{Link} = require 'react-router'
+{RouteHandler, State} = require 'react-router'
 
 module.exports = React.createClass
   render: ->
@@ -22,7 +22,8 @@ module.exports = React.createClass
         <meta name="author" content={author} />
       </head>
       <body>
-        <Main data={data} />
+        {React.createElement(RouteHandler, @props.db)}
+        <Link to="login">Login</Link>
         <script src={jsFilePath} type="text/javascript" />
       </body>
     </html>

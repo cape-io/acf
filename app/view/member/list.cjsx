@@ -71,7 +71,7 @@ module.exports = React.createClass
     memberData = []
     # Search against name and emails.
     filterFunc = (opts, filterStr, currentVals) =>
-      searchStrs = filterStr.split(' ')
+      searchStrs = filterStr.toLowerCase().split(' ')
       search = (member) ->
         _.every searchStrs, (part) ->
           _.includes member.searchStr, part
@@ -88,7 +88,7 @@ module.exports = React.createClass
         #label: <span className={if expired then 'text-warning'}>{searchStr}</span>
         label: searchStr
         value: row.id+''
-        searchStr: searchStr
+        searchStr: searchStr.toLowerCase()
     selectProps =
       name: 'form-field-name'
       placeholder: "Name or Email"
