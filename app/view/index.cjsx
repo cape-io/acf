@@ -22,7 +22,7 @@ module.exports = React.createClass
         <meta name="author" content={author} />
       </head>
       <body>
-        {React.createElement(RouteHandler, @props.db)}
+        {React.createElement(RouteHandler, data)}
         <Link to="login">Login</Link>
         <script src={jsFilePath} type="text/javascript" />
       </body>

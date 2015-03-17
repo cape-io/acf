@@ -25,13 +25,15 @@ module.exports = React.createClass
     if _.contains(email, '@') and domain = email.split('@')[1]
       if _.contains(domain, '.') and tld = domain.split('.')[1]
         if tld.length > 1
-          console.log 'Checking email ', email
+          #console.log 'Checking email ', email
           http.get('http://acf.cape.io.ld/user/email/'+email).accept('json').end (err, res) =>
             if not err and res and res.body
               if emailIndex[email] = res.body[0] or false
                 @setState emailStatus: 'success'
               else
                 @setState emailStatus: 'warning'
+            else
+              console.log err, res
     @setState
       emailStatus: null
       email: email
@@ -39,18 +41,27 @@ module.exports = React.createClass
   #mixins: [Navigation, CurrentPath]
   render: ->
     {email, emailStatus} = @state
+    {login} = @props
 
     if emailStatus is 'success'
       {title, expired} = emailIndex[email]
-      userInfo = <h3>{title}</h3>
+      welcome = "Welcome, #{title}!"
+      emailHelpTxt = false
+      userInfo =
+        <div>
+          <h3>{welcome}</h3>
+          {if expired then <p>{login.expired_membership}</p> else false}
+        </div>
       passwordField =
         <Input
           type="password"
           label="Password:"
+          help="Please enter your password."
         />
     else
       passwordField = false
       userInfo = false
+      emailHelpTxt = login.email_help
 
     <div className="row">
       <img src="https://composersforum.org/sites/all/themes/acfzen/acfzen/logo.png" alt="logo" />
@@ -64,7 +75,7 @@ module.exports = React.createClass
           value={email}
           placeholder='Enter your email'
           label='Your email please:'
-          help='Please use the email used when registering your membership.'
+          help={emailHelpTxt}
           bsStyle={emailStatus}
           ref='email'
           hasFeedback= {true}
@@ -73,7 +84,7 @@ module.exports = React.createClass
           labelClassName='label-class-editable'
           onChange={@changeEmail}
         />
+        {userInfo}
         {passwordField}
       </div>
-      {userInfo}
     </div>
