@@ -12,6 +12,13 @@
     "build": "NODE_ENV=production browserify ./ > ./public/assets/app.js && zopfli ./public/assets/app.js",
     "clean": "rm -f ./public/assets/*"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cape-io/acf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cape-io/acf/issues"
+  },
   "author": "Kai Curry",
   "license": "ISC",
   "dependencies": {
