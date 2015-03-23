@@ -39,7 +39,7 @@ module.exports = React.createClass
     else if (length > 0) then return 'error'
 
   componentDidMount: ->
-    http.get('http://acf.cape.io/memberList.json').accept('json').end (err, res) =>
+    http.get('/memberList.json').accept('json').end (err, res) =>
       console.log 'got member list'
       if not err and res and res.body
         @setState members: res.body
@@ -54,7 +54,7 @@ module.exports = React.createClass
     if not memberIndex[id]?.loading and not memberIndex[id]?.loaded
       memberIndex[id].loading = true
       console.log 'fetch', value
-      http.get('http://acf.cape.io/fetch/user/'+value).accept('json').end (err, res) =>
+      http.get('/fetch/user/'+value).accept('json').end (err, res) =>
         if res and res.body and res.body.id
           res.body.loaded = true
           memberIndex[id] = res.body

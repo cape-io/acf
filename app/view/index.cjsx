@@ -28,6 +28,7 @@ module.exports = React.createClass
         <meta name="author" content={author} />
       </head>
       <body>
+        <img src="https://composersforum.org/sites/all/themes/acfzen/acfzen/logo.png" alt="logo" />
         {React.createElement(RouteHandler, data)}
         <Link to="login">Login</Link>
         <script src={jsFilePath} type="text/javascript" />

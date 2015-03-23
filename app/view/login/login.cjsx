@@ -111,7 +111,6 @@ module.exports = React.createClass
       emailHelpTxt = login.email_help
 
     <div className="row">
-      <img src="https://composersforum.org/sites/all/themes/acfzen/acfzen/logo.png" alt="logo" />
       <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <h1> Login </h1>
         <p className="lead">

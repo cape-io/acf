@@ -5,5 +5,5 @@ module.exports = React.createClass
     {data, query} = @props
 
     <div className="container">
-      <h1>Hello</h1>
+      <h1>Member Directory</h1>
     </div>
