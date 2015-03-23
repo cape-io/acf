@@ -1,16 +1,31 @@
 React = require 'react'
+# {Transition} = require 'react-router'
 {Input} = require 'react-bootstrap'
 _ = require 'lodash'
 http = require 'superagent'
-
+Cookies = require 'cookies-js'
 emailIndex = {}
 
 module.exports = React.createClass
+  contextTypes: {
+    router: React.PropTypes.func.isRequired
+  }
   getInitialState: ->
     email: ''
     emailStatus: null
     password: ''
     passwordStatus: null
+
+  componentDidMount: ->
+    if Cookies('sid')
+      http.get('/me.json')
+      .accept('json')
+      .end (err, res) =>
+        if user = res?.body
+          app.me = user
+          app.me.loaded = true
+          console.log 'authenticated'
+          @context.router.transitionTo('me')
 
   changeEmail: ->
     email = @refs.email.getValue()
@@ -28,7 +43,9 @@ module.exports = React.createClass
       if _.contains(domain, '.') and tld = domain.split('.')[1]
         if tld.length > 1
           #console.log 'Checking email ', email
-          http.get('http://acf.cape.io.ld/user/email/'+email).accept('json').end (err, res) =>
+          http.get('/user/email/'+email)
+          .withCredentials()
+          .accept('json').end (err, res) =>
             if not err and res and res.body
               if emailIndex[email] = res.body[0] or false
                 @setState emailStatus: 'success'
@@ -48,7 +65,7 @@ module.exports = React.createClass
     e.preventDefault()
     {email, password} = @state
     {id} = emailIndex[email]
-    http.post('http://acf.cape.io.ld/user/login')
+    http.post('/user/login')
       .send({id: id, password: password})
       .accept('json')
       .end (err, res) =>

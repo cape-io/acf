@@ -35,7 +35,8 @@
     "ampersand-state": "4.x",
     "domready": "1.x",
     "lazy.js": "0.x",
-    "react-select": "0.x"
+    "react-select": "0.x",
+    "cookies-js": "^1.2.1"
   },
   "devDependencies": {
     "cape-gulp": "git+https://github.com/cape-io/cape-gulp.git",

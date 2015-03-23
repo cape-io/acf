@@ -1,8 +1,11 @@
 React = require 'react'
 {Link} = require 'react-router'
-{RouteHandler, State} = require 'react-router'
+{RouteHandler} = require 'react-router'
 
 module.exports = React.createClass
+  contextTypes: {
+    router: React.PropTypes.func.isRequired
+  }
   render: ->
     {data} = @props
     {title, sha, description, author} = data
@@ -10,6 +13,9 @@ module.exports = React.createClass
     cssFilePath = "/assets/#{appFileName}.css"
     jsFilePath = "/assets/#{appFileName}.js"
 
+    url = @context.router.getCurrentPathname()
+    if url is '/me'
+      data.member = window?.app?.me
     <html>
       <head>
         <title>{title}</title>

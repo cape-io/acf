@@ -2,6 +2,7 @@
 var appInfo = require('./package.json')
 // Create global variable SITE_ID based on name property.
 global.SITE_ID = appInfo.name
+global.DEV_URL = 'l.acf.cape.io'
 global.DATA_URL = appInfo.homepage+'/index.json'
 // Require coffeescript
 require('coffee-script/register');

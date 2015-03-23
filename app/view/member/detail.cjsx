@@ -1,6 +1,12 @@
 React = require 'react'
 
 module.exports = React.createClass
+  statics:
+    willTransitionTo: (transition, params) ->
+      app = window?.app or {}
+      unless app.me
+        transition.redirect('login')
+
   render: ->
     {title, expires, recurly, expired, state, loaded, emails, picture} = @props.member
     listItems = [
