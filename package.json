@@ -1,21 +1,9 @@
 {
-  "name": "mfa-thesis",
+  "name": "acf",
+  "homepage": "http://members.composersforum.org",
   "version": "0.0.1",
-  "description": "MFA Thesis",
+  "description": "American Composers Forum - Members",
   "main": "app/app.cjsx",
-  "browser": "app/app.cjsx",
-  "browserify": {
-    "extensions": [
-      ".coffee",
-      ".cjsx",
-      ".json"
-    ],
-    "transform": [
-      [
-        "coffee-reactify"
-      ]
-    ]
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm run markup && npm run build && browser-sync start --files \"public/index.html, public/assets/*.*\" --server public",
@@ -24,7 +12,7 @@
     "build": "NODE_ENV=production browserify ./ > ./public/assets/app.js && zopfli ./public/assets/app.js",
     "clean": "rm -f ./public/assets/*"
   },
-  "author": "Kristian Bjornard and Kai Curry",
+  "author": "Kai Curry",
   "license": "ISC",
   "dependencies": {
     "lodash": "3.x",
@@ -37,46 +25,14 @@
     "ampersand-model": "4.x",
     "ampersand-collection": "1.x",
     "ampersand-rest-collection": "2.x",
-    "ampersand-state": "^4.4.4",
-    "domready": "^1.0.7",
-    "lazy.js": "^0.4.0",
-    "fuzzaldrin": "^2.1.0",
-    "react-select": "^0.3.4"
+    "ampersand-state": "4.x",
+    "domready": "1.x",
+    "lazy.js": "0.x",
+    "react-select": "0.x"
   },
   "devDependencies": {
+    "cape-gulp": "git+https://github.com/cape-io/cape-gulp.git",
     "gulp": "3.x",
-    "browserify": "8.x",
-    "coffee-react": "2.x",
-    "coffee-reactify": "2.x",
-    "coffee-script": "1.x",
-    "vinyl-transform": "1.x",
-    "gulp-rename": "1.x",
-    "minifyify": "4.x",
-    "gulp-uglify": "1.x",
-    "exorcist": "*",
-    "browser-sync": "1.x",
-    "request": "*",
-    "gulp-data": "*",
-    "gulp-yaml": "*",
-    "gulp-less": "*",
-    "gulp-markdown-to-json": "*",
-    "async": "*",
-    "vinyl-source-stream": "1.x",
-    "fs-extra": "0.x",
-    "gulp-debug": "1.x",
-    "gulp-gh-pages": "0.x",
-    "run-sequence": "1.x",
-    "yaml-front-matter": "3.x",
-    "marked": "0.x",
-    "marky-mark": "1.x",
-    "watchify": "2.x",
-    "gulp-util": "3.x",
-    "vinyl-buffer": "1.x",
-    "gulp-sourcemaps": "1.x",
-    "minimist": "1.x",
-    "gulp-clean": "x",
-    "imgix": "0.0.1",
-    "queries": "0.0.3",
-    "redis": "^0.12.1"
+    "coffee-script": "1.x"
   }
 }

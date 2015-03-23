@@ -9,6 +9,8 @@ module.exports = React.createClass
   getInitialState: ->
     email: ''
     emailStatus: null
+    password: ''
+    passwordStatus: null
 
   changeEmail: ->
     email = @refs.email.getValue()
@@ -38,9 +40,29 @@ module.exports = React.createClass
       emailStatus: null
       email: email
 
+  changePass: ->
+    pass = @refs.pass.getValue()
+    @setState password: pass, passwordStatus: null
+
+  handleSubmit: (e) ->
+    e.preventDefault()
+    {email, password} = @state
+    {id} = emailIndex[email]
+    http.post('http://acf.cape.io.ld/user/login')
+      .send({id: id, password: password})
+      .accept('json')
+      .end (err, res) =>
+        console.error err if err
+        if res.body
+          app.me = res.body
+          console.log res.body
+        else
+          console.log 'failed login'
+          @setState passwordStatus: 'error'
+
   #mixins: [Navigation, CurrentPath]
   render: ->
-    {email, emailStatus} = @state
+    {email, emailStatus, passwordStatus} = @state
     {login} = @props
 
     if emailStatus is 'success'
@@ -52,12 +74,20 @@ module.exports = React.createClass
           <h3>{welcome}</h3>
           {if expired then <p>{login.expired_membership}</p> else false}
         </div>
+      passHelpTxt =
+        <div>{login.pass_help+' '}<a href="#">{login.pass_link}</a></div>
       passwordField =
-        <Input
-          type="password"
-          label="Password:"
-          help="Please enter your password."
-        />
+        <div>
+          <Input
+            type="password"
+            ref="pass"
+            label="Password:"
+            help={passHelpTxt}
+            onChange={@changePass}
+            bsStyle={passwordStatus}
+          />
+          <Input type="submit" value="Login" />
+        </div>
     else
       passwordField = false
       userInfo = false
@@ -70,21 +100,23 @@ module.exports = React.createClass
         <p className="lead">
           American Composers Forum
         </p>
-        <Input
-          type="text"
-          value={email}
-          placeholder='Enter your email'
-          label='Your email please:'
-          help={emailHelpTxt}
-          bsStyle={emailStatus}
-          ref='email'
-          hasFeedback= {true}
-          groupClassName='group-class-login'
-          wrapperClassName='wrapper-class-login'
-          labelClassName='label-class-editable'
-          onChange={@changeEmail}
-        />
-        {userInfo}
-        {passwordField}
+        <form onSubmit={@handleSubmit}>
+          <Input
+            type="text"
+            value={email}
+            placeholder='Enter your email'
+            label='Your email please:'
+            help={emailHelpTxt}
+            bsStyle={emailStatus}
+            ref='email'
+            hasFeedback= {true}
+            groupClassName='group-class-login'
+            wrapperClassName='wrapper-class-login'
+            labelClassName='label-class-editable'
+            onChange={@changeEmail}
+          />
+          {userInfo}
+          {passwordField}
+        </form>
       </div>
     </div>

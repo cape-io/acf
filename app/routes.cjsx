@@ -1,6 +1,5 @@
 React = require 'react'
-Router = require 'react-router'
-{Route, DefaultRoute} = Router
+{Route, DefaultRoute} = require 'react-router'
 
 Index = require './view/index'
 Login = require './view/login/login'
